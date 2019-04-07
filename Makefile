@@ -22,7 +22,8 @@ ifneq ($(uname_S),Linux)
 	@exit 1
 endif
 
-test:
+test:$(XXDB_TARGET)
+	@(cd test; ./runtest.sh)
 
 $(XXDB_TARGET): $(XXDB_OBJ) $(LIBS)
 	$(CC) -o $@ $^ $(LDFLAGS)
