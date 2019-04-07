@@ -1,0 +1,26 @@
+CC=gcc
+LIBNAME=libae
+DYLIBSUFFIX=so
+STLIBSUFFIX=a
+OBJ=ae.o ae_epoll.o
+CFLAGS+=-DHAVE_EPOLL -fPIC -Wall -g
+
+DYLIBNAME=$(LIBNAME).$(DYLIBSUFFIX)
+
+STLIBNAME=$(LIBNAME).$(STLIBSUFFIX)
+STLIB_MAKE_CMD=ar rcs $(STLIBNAME)
+
+all: $(DYLIBNAME) $(STLIBNAME)
+
+$(DYLIBNAME): $(OBJ)
+	$(CC) -shared -o $(DYLIBNAME) $(OBJ) -DHAVE_EPOLL
+
+$(STLIBNAME): $(OBJ)
+	$(STLIB_MAKE_CMD) $(OBJ)
+
+
+dynamic: $(DYLIBNAME)
+static: $(STLIBNAME)
+
+clean:
+	rm -rf *.o $(DYLIBNAME) $(STLIBNAME)
