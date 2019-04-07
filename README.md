@@ -56,5 +56,12 @@ show命令显示当前系统的状态，包括：kv总数，最小key，最大ke
 tadpole目前只支持简单的持久化功能，在系统退出时将内存中的key/value对写入到数据文件中。重启时加载数据文件，load重启前的数据到内存中。
 后续会支持手动触发，以及定时触发的持久化功能。
 
+## test
+使用Redis-cli进行put/get/delete/scan/info各个接口的测试，只需如下命令：
+
+    $ make test
+    
+**由于使用了redis-cli，请提前安装好redis客户端，并将PATH添加到.~/.bashrc中**
+
 ## 性能
-使用Redis的benchmark进行了put/get的基准测试，2C4G的配置，256字节的value长度，QPS可以实现5w以上。后续补充不同长度的基准测试。
+使用Redis的benchmark进行了put/get的基准测试，2C4G的配置，256字节的value长度，100个客户端，QPS可以实现5w以上。后续补充不同长度的基准测试。
